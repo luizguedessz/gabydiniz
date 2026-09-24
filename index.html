@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gaby Diniz – Arrocha, Forró das Antigas e Brega</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js Plugins -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandPink: '#ec4899', 
+                        brandBlue: '#3b82f6', 
+                        bg: { DEFAULT: '#0a0a0a', elevated: '#121212', card: '#18181b' },
+                        cream: { DEFAULT: '#fafafa' }
+                    },
+                    fontFamily: {
+                        display: ['Bebas Neue', 'sans-serif'],
+                        body: ['Inter', 'sans-serif']
+                    },
+                    letterSpacing: { poster: '0.05em' },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0a0a0a; color: #fafafa; overflow-x: hidden; }
+        .font-display { font-family: 'Bebas Neue', sans-serif; }
+        
+        .light-beams {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+            background: radial-gradient(circle at 20% 30%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+            filter: blur(40px);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(to right, #3b82f6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 100ms; }
+        .reveal-delay-2 { transition-delay: 200ms; }
+        .reveal-delay-3 { transition-delay: 300ms; }
+        
+        .scrollbar-hidden::-webkit-scrollbar { display: none; }
+        .scrollbar-hidden { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="antialiased font-body" x-data="scrollReveal()">
+
+    <!-- Header Menu -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b" 
+            :class="{ 'bg-bg/80 backdrop-blur-xl border-white/10 py-3': scrolled, 'bg-transparent border-transparent py-5': !scrolled }"
+            @scroll.window="scrolled = (window.pageYOffset > 50)">
+        <div class="mx-auto max-w-6xl px-5 sm:px-8 flex items-center justify-between">
+            
+            <a href="#" class="relative h-10 w-32 sm:h-12 sm:w-40 transition-transform duration-300 hover:scale-105">
+                <img src="logo.png" alt="Gaby Diniz" class="w-full h-full object-contain object-left">
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#hero" class="text-sm font-medium tracking-wide text-cream/80 hover:text-brandPink transition-colors">Início</a>
+                <a href="#sobre" class="text-sm font-medium tracking-wide text-cream/80 hover:text-brandPink transition-colors">Sobre</a>
+                <a href="#galeria" class="text-sm font-medium tracking-wide text-cream/80 hover:text-brandPink transition-colors">Galeria</a>
+                <a href="#spotify" class="text-sm font-medium tracking-wide text-cream/80 hover:text-brandPink transition-colors">Músicas</a>
+                <a href="#estrutura" class="text-sm font-medium tracking-wide text-cream/80 hover:text-brandPink transition-colors">Estrutura</a>
+            </nav>
+            <a href="https://wa.me/5583996797817" target="_blank" class="hidden md:block px-6 py-2.5 border border-brandPink/50 text-brandPink rounded-full text-sm font-semibold hover:bg-brandPink hover:text-white hover:border-brandPink hover:shadow-[0_0_15px_rgba(236,72,153,0.5)] transition-all duration-300">CONTRATAR</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-bg pt-20">
+            <div class="absolute inset-0 bg-[url('fundo-hero.jpg')] bg-cover bg-center bg-no-repeat opacity-30 mix-blend-luminosity transform scale-105 transition-transform duration-[10s]" x-bind:style="'transform: translateY(' + (scrollY * 0.4) + 'px) scale(1.05);'"></div>
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/80 to-transparent"></div>
+            <div class="light-beams animate-pulse-slow"></div>
+            
+            <div class="relative z-10 w-full mx-auto max-w-6xl px-5 sm:px-8 flex flex-col items-center text-center">
+                <p class="text-brandBlue font-semibold tracking-[0.4em] uppercase mb-4 text-xs sm:text-sm reveal" x-intersect="$el.classList.add('active')">Campina Grande - PB</p>
+                <h1 class="font-display text-7xl sm:text-8xl md:text-9xl tracking-poster text-cream leading-none mb-6 drop-shadow-2xl reveal reveal-delay-1" x-intersect="$el.classList.add('active')">GABY DINIZ</h1>
+                <p class="max-w-xl text-cream/80 text-base sm:text-lg mb-10 reveal reveal-delay-2" x-intersect="$el.classList.add('active')">Arrocha, Forró das Antigas e Brega para animar o seu evento com o melhor repertório da região.</p>
+                
+                <a href="#estrutura" class="group relative inline-flex items-center justify-center px-8 py-4 text-sm font-semibold tracking-widest text-white transition-all duration-300 ease-in-out transform rounded-full bg-gradient-to-r from-brandBlue to-brandPink hover:scale-105 hover:shadow-[0_0_30px_rgba(236,72,153,0.4)] reveal reveal-delay-3" x-intersect="$el.classList.add('active')">
+                    <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-full group-hover:h-56 opacity-10"></span>
+                    <span class="relative">VER ESTRUTURA DO SHOW</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Sobre / Release Section -->
+        <section id="sobre" class="relative bg-bg py-24 sm:py-32 overflow-hidden">
+            <div class="light-beams opacity-40"></div>
+            <div class="relative mx-auto max-w-6xl px-5 sm:px-8 grid md:grid-cols-2 gap-16 items-center">
+                
+                <div class="order-2 md:order-1 reveal" x-intersect="$el.classList.add('active')">
+                    <p class="text-brandPink text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase mb-4">RELEASE</p>
+                    <h2 class="font-display text-5xl sm:text-6xl tracking-poster text-cream mb-8 leading-tight">Gaby Diniz<br><span class="text-gradient">A Voz de Campina</span></h2>
+                    
+                    <div class="space-y-6">
+                        <p class="text-cream/75 text-base sm:text-lg leading-relaxed font-light text-justify">
+                            Gaby Diniz, cantora e compositora de Campina Grande-PB, começou sua trajetória musical ainda criança, cantando na igreja e para sua família. Com muito amor pela música, deu seus primeiros passos profissionais em 2020, superando desafios e construindo sua carreira.
+                        </p>
+                        <p class="text-cream/75 text-base sm:text-lg leading-relaxed font-light text-justify">
+                            Hoje, com determinação e fé, segue crescendo, conquistando espaço no cenário musical, fazendo grandes participações com cantores do auge como: <strong>Noara Marques, Maria Clara, Japãozinho...</strong> e sempre se destacando nos eventos e casas de shows que anda rodando como: Banana Beer, Salon Bar, Dorys Prime, Forró Max...!
+                        </p>
+                        <p class="text-cream/75 text-base sm:text-lg leading-relaxed font-light text-justify border-l-2 border-brandBlue pl-4">
+                            Realizando o sonho de compartilhar sua arte com o mundo 🌍
+                        </p>
+                    </div>
+                </div>
+
+                <div class="order-1 md:order-2 reveal reveal-delay-2" x-intersect="$el.classList.add('active')">
+                    <div class="relative w-full max-w-sm mx-auto aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl animate-float">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-brandBlue/30 to-brandPink/30 mix-blend-overlay z-10"></div>
+                        <img src="foto-principal.jpg" alt="Gaby Diniz" class="w-full h-full object-cover bg-zinc-900 z-0">
+                        <div class="absolute inset-0 border-2 border-white/10 rounded-2xl z-20"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galeria 1: 4 Fotos Gerais (Grid) -->
+        <section class="relative bg-bg-elevated py-20 border-t border-white/5">
+            <div class="mx-auto max-w-6xl px-5 sm:px-8">
+                <div class="mb-12 text-center reveal" x-intersect="$el.classList.add('active')">
+                    <h2 class="font-display text-4xl sm:text-5xl tracking-poster text-cream">A ARTISTA</h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                    <div class="relative aspect-[4/5] rounded-xl overflow-hidden group reveal" x-intersect="$el.classList.add('active')">
+                        <img src="foto-1.jpg" alt="Gaby Diniz" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 bg-zinc-800">
+                    </div>
+                    <div class="relative aspect-[4/5] rounded-xl overflow-hidden group reveal reveal-delay-1" x-intersect="$el.classList.add('active')">
+                        <img src="foto-2.jpg" alt="Gaby Diniz" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 bg-zinc-800">
+                    </div>
+                    <div class="relative aspect-[4/5] rounded-xl overflow-hidden group reveal reveal-delay-2" x-intersect="$el.classList.add('active')">
+                        <img src="foto-3.jpg" alt="Gaby Diniz" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 bg-zinc-800">
+                    </div>
+                    <div class="relative aspect-[4/5] rounded-xl overflow-hidden group reveal reveal-delay-3" x-intersect="$el.classList.add('active')">
+                        <img src="foto-4.jpg" alt="Gaby Diniz" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 bg-zinc-800">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galeria 2: Fotos de Show (Carrossel Horizontal) -->
+        <section id="galeria" class="relative bg-bg py-24 border-t border-white/5">
+            <div class="mx-auto max-w-6xl px-5 sm:px-8 mb-10 text-center reveal" x-intersect="$el.classList.add('active')">
+                <p class="text-brandPink text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase mb-3">Registros ao vivo</p>
+                <h2 class="font-display text-4xl sm:text-5xl md:text-6xl tracking-poster text-cream">GALERIA DE SHOWS</h2>
+            </div>
+            
+            <div class="relative w-full overflow-hidden reveal" x-intersect="$el.classList.add('active')">
+                <div class="flex gap-4 overflow-x-auto scrollbar-hidden snap-x snap-mandatory px-5 sm:px-8 pb-4">
+                    <div class="shrink-0 snap-start w-[75vw] sm:w-[320px] aspect-[3/4] rounded-xl overflow-hidden group relative border border-white/10">
+                        <img src="show-1.jpg" alt="Show" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 bg-zinc-800">
+                    </div>
+                    <div class="shrink-0 snap-start w-[75vw] sm:w-[320px] aspect-[3/4] rounded-xl overflow-hidden group relative border border-white/10">
+                        <img src="show-2.jpg" alt="Show" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 bg-zinc-800">
+                    </div>
+                    <div class="shrink-0 snap-start w-[75vw] sm:w-[320px] aspect-[3/4] rounded-xl overflow-hidden group relative border border-white/10">
+                        <img src="show-3.jpg" alt="Show" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 bg-zinc-800">
+                    </div>
+                    <div class="shrink-0 snap-start w-[75vw] sm:w-[320px] aspect-[3/4] rounded-xl overflow-hidden group relative border border-white/10">
+                        <img src="show-4.jpg" alt="Show" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 bg-zinc-800">
+                    </div>
+                    <div class="shrink-0 snap-start w-[75vw] sm:w-[320px] aspect-[3/4] rounded-xl overflow-hidden group relative border border-white/10">
+                        <img src="show-6.jpg" alt="Show" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 bg-zinc-800">
+                    </div>
+                    <div class="shrink-0 snap-start w-[75vw] sm:w-[320px] aspect-[3/4] rounded-xl overflow-hidden group relative border border-white/10">
+                        <img src="show-7.jpg" alt="Show" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 bg-zinc-800">
+                    </div>
+                    <div class="shrink-0 snap-start w-[75vw] sm:w-[320px] aspect-[3/4] rounded-xl overflow-hidden group relative border border-white/10">
+                        <img src="show-8.jpg" alt="Show" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 bg-zinc-800">
+                    </div>
+                    <div class="shrink-0 snap-start w-[75vw] sm:w-[320px] aspect-[3/4] rounded-xl overflow-hidden group relative border border-white/10">
+                        <img src="show-9.jpg" alt="Show" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 bg-zinc-800">
+                    </div>
+                    <div class="shrink-0 snap-start w-[75vw] sm:w-[320px] aspect-[3/4] rounded-xl overflow-hidden group relative border border-white/10">
+                        <img src="show-10.jpg" alt="Show" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 bg-zinc-800">
+                    </div>
+                    <div class="shrink-0 snap-start w-[75vw] sm:w-[320px] aspect-[3/4] rounded-xl overflow-hidden group relative border border-white/10">
+                        <img src="show-11.jpg" alt="Show" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 bg-zinc-800">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 1: Vídeos em Destaque (6 Vídeos Originais) -->
+        <section id="videos" class="relative bg-bg-elevated py-24 border-b border-white/5">
+            <div class="mx-auto max-w-6xl px-5 sm:px-8">
+                <div class="mb-16 text-center reveal" x-intersect="$el.classList.add('active')">
+                    <p class="text-brandPink text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase mb-4">Assista</p>
+                    <h2 class="font-display text-5xl sm:text-6xl tracking-poster text-cream">EM DESTAQUE</h2>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="reveal group" x-intersect="$el.classList.add('active')">
+                        <div class="bg-black/50 backdrop-blur-sm border border-brandPink/20 p-2 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-500 aspect-[9/16] overflow-hidden">
+                            <video src="video-1.mp4" controls playsinline preload="metadata" class="w-full h-full object-cover rounded-xl bg-zinc-900"></video>
+                        </div>
+                    </div>
+                    <div class="reveal reveal-delay-1 group" x-intersect="$el.classList.add('active')">
+                        <div class="bg-black/50 backdrop-blur-sm border border-brandBlue/20 p-2 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-500 aspect-[9/16] overflow-hidden">
+                            <video src="video-2.mp4" controls playsinline preload="metadata" class="w-full h-full object-cover rounded-xl bg-zinc-900"></video>
+                        </div>
+                    </div>
+                    <div class="reveal reveal-delay-2 group" x-intersect="$el.classList.add('active')">
+                        <div class="bg-black/50 backdrop-blur-sm border border-brandPink/20 p-2 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-500 aspect-[9/16] overflow-hidden">
+                            <video src="video-3.mp4" controls playsinline preload="metadata" class="w-full h-full object-cover rounded-xl bg-zinc-900"></video>
+                        </div>
+                    </div>
+                    <div class="reveal group" x-intersect="$el.classList.add('active')">
+                        <div class="bg-black/50 backdrop-blur-sm border border-brandBlue/20 p-2 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-500 aspect-[9/16] overflow-hidden">
+                            <video src="video-4.mp4" controls playsinline preload="metadata" class="w-full h-full object-cover rounded-xl bg-zinc-900"></video>
+                        </div>
+                    </div>
+                    <div class="reveal reveal-delay-1 group" x-intersect="$el.classList.add('active')">
+                        <div class="bg-black/50 backdrop-blur-sm border border-brandPink/20 p-2 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-500 aspect-[9/16] overflow-hidden">
+                            <video src="video-5.mp4" controls playsinline preload="metadata" class="w-full h-full object-cover rounded-xl bg-zinc-900"></video>
+                        </div>
+                    </div>
+                    <div class="reveal reveal-delay-2 group" x-intersect="$el.classList.add('active')">
+                        <div class="bg-black/50 backdrop-blur-sm border border-brandBlue/20 p-2 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-500 aspect-[9/16] overflow-hidden">
+                            <video src="video-6.mp4" controls playsinline preload="metadata" class="w-full h-full object-cover rounded-xl bg-zinc-900"></video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2: Shows em Destaque (7 Novos Vídeos) -->
+        <section id="shows-destaque" class="relative bg-bg py-24 sm:py-32 border-b border-white/5">
+            <div class="mx-auto max-w-6xl px-5 sm:px-8">
+                <div class="mb-16 text-center reveal" x-intersect="$el.classList.add('active')">
+                    <p class="text-brandBlue text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase mb-4">Assista aos vídeos</p>
+                    <h2 class="font-display text-5xl sm:text-6xl tracking-poster text-cream">SHOWS EM DESTAQUE</h2>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-8 max-w-5xl mx-auto">
+                    <!-- DESTAQUE 1 -->
+                    <div class="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] reveal group" x-intersect="$el.classList.add('active')">
+                        <div class="bg-black/50 backdrop-blur-sm border border-brandBlue/20 p-2 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-500 aspect-[9/16] overflow-hidden">
+                            <video src="destaque-1.mp4" controls playsinline preload="metadata" class="w-full h-full object-cover rounded-xl bg-zinc-900"></video>
+                        </div>
+                    </div>
+                    <!-- DESTAQUE 2 -->
+                    <div class="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] reveal reveal-delay-1 group" x-intersect="$el.classList.add('active')">
+                        <div class="bg-black/50 backdrop-blur-sm border border-brandPink/20 p-2 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-500 aspect-[9/16] overflow-hidden">
+                            <video src="destaque-2.mp4" controls playsinline preload="metadata" class="w-full h-full object-cover rounded-xl bg-zinc-900"></video>
+                        </div>
+                    </div>
+                    <!-- DESTAQUE 3 -->
+                    <div class="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] reveal reveal-delay-2 group" x-intersect="$el.classList.add('active')">
+                        <div class="bg-black/50 backdrop-blur-sm border border-brandBlue/20 p-2 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-500 aspect-[9/16] overflow-hidden">
+                            <video src="destaque-3.mp4" controls playsinline preload="metadata" class="w-full h-full object-cover rounded-xl bg-zinc-900"></video>
+                        </div>
+                    </div>
+                    <!-- DESTAQUE 4 -->
+                    <div class="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] reveal group" x-intersect="$el.classList.add('active')">
+                        <div class="bg-black/50 backdrop-blur-sm border border-brandPink/20 p-2 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-500 aspect-[9/16] overflow-hidden">
+                            <video src="destaque-4.mp4" controls playsinline preload="metadata" class="w-full h-full object-cover rounded-xl bg-zinc-900"></video>
+                        </div>
+                    </div>
+                    <!-- DESTAQUE 5 -->
+                    <div class="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] reveal reveal-delay-1 group" x-intersect="$el.classList.add('active')">
+                        <div class="bg-black/50 backdrop-blur-sm border border-brandBlue/20 p-2 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-500 aspect-[9/16] overflow-hidden">
+                            <video src="destaque-5.mp4" controls playsinline preload="metadata" class="w-full h-full object-cover rounded-xl bg-zinc-900"></video>
+                        </div>
+                    </div>
+                    <!-- DESTAQUE 6 -->
+                    <div class="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] reveal reveal-delay-2 group" x-intersect="$el.classList.add('active')">
+                        <div class="bg-black/50 backdrop-blur-sm border border-brandPink/20 p-2 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-500 aspect-[9/16] overflow-hidden">
+                            <video src="destaque-6.mp4" controls playsinline preload="metadata" class="w-full h-full object-cover rounded-xl bg-zinc-900"></video>
+                        </div>
+                    </div>
+                    <!-- DESTAQUE 7 (Novo) -->
+                    <div class="w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1.5rem)] reveal group" x-intersect="$el.classList.add('active')">
+                        <div class="bg-black/50 backdrop-blur-sm border border-brandBlue/20 p-2 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-500 aspect-[9/16] overflow-hidden">
+                            <video src="destaque-7.mp4" controls playsinline preload="metadata" class="w-full h-full object-cover rounded-xl bg-zinc-900"></video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instagram Banner -->
+        <section id="instagram-banner" class="relative bg-bg-elevated py-16 border-t border-white/5">
+            <div class="mx-auto max-w-4xl px-5 sm:px-8 text-center reveal" x-intersect="$el.classList.add('active')">
+                <p class="text-brandPink text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase mb-3">Redes Sociais</p>
+                <h2 class="font-display text-4xl sm:text-5xl tracking-poster text-cream mb-8">ACOMPANHE NO INSTAGRAM</h2>
+                
+                <a href="https://www.instagram.com/gabidiniz.oficial" target="_blank" class="group relative flex flex-col sm:flex-row items-center justify-center gap-6 p-8 sm:p-10 rounded-3xl border border-brandPink/20 bg-gradient-to-r from-brandPink/5 to-transparent hover:border-brandPink/50 transition-all duration-500 overflow-hidden shadow-lg">
+                    <div class="absolute inset-0 bg-brandPink/5 group-hover:bg-brandPink/10 transition-colors duration-500"></div>
+                    <div class="relative z-10 w-20 h-20 flex-shrink-0 rounded-full bg-gradient-to-tr from-yellow-400 via-brandPink to-purple-600 p-1 group-hover:scale-110 transition-transform duration-500">
+                        <div class="w-full h-full bg-bg rounded-full flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                        </div>
+                    </div>
+                    <div class="relative z-10 text-center sm:text-left">
+                        <h3 class="text-3xl font-display tracking-widest text-white mb-1">@gabidiniz.oficial</h3>
+                        <p class="text-cream/60 text-sm">Siga para conferir bastidores, agenda de shows e muito mais!</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- TikTok Banner -->
+        <section id="tiktok-banner" class="relative bg-bg py-16 border-t border-white/5">
+            <div class="mx-auto max-w-4xl px-5 sm:px-8 text-center reveal" x-intersect="$el.classList.add('active')">
+                <p class="text-brandBlue text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase mb-3">Vídeos Virais</p>
+                <h2 class="font-display text-4xl sm:text-5xl tracking-poster text-cream mb-8">ACOMPANHE NO TIKTOK</h2>
+                
+                <a href="https://www.tiktok.com/@gabidiniz.oficial" target="_blank" class="group relative flex flex-col sm:flex-row items-center justify-center gap-6 p-8 sm:p-10 rounded-3xl border border-white/10 bg-gradient-to-r from-zinc-900 to-black hover:border-brandBlue/50 transition-all duration-500 overflow-hidden shadow-lg">
+                    <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-transparent to-pink-500/10 group-hover:from-cyan-500/20 group-hover:to-pink-500/20 transition-colors duration-500"></div>
+                    <div class="relative z-10 w-20 h-20 flex-shrink-0 rounded-full bg-gradient-to-tr from-cyan-400 to-pink-500 p-1 group-hover:scale-110 transition-transform duration-500">
+                        <div class="w-full h-full bg-black rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(236,72,153,0.5)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+                        </div>
+                    </div>
+                    <div class="relative z-10 text-center sm:text-left">
+                        <h3 class="text-3xl font-display tracking-widest text-white mb-1">@gabidiniz.oficial</h3>
+                        <p class="text-cream/60 text-sm">Acompanhe as dancinhas, trends e os bastidores dos shows no TikTok!</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Player do Spotify -->
+        <section id="spotify" class="relative bg-bg-elevated py-20 border-t border-b border-white/5">
+            <div class="mx-auto max-w-4xl px-5 sm:px-8 text-center reveal" x-intersect="$el.classList.add('active')">
+                <p class="text-brandPink text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase mb-3">Ouça Agora</p>
+                <h2 class="font-display text-4xl sm:text-5xl tracking-poster text-cream mb-10">GABY DINIZ NO SPOTIFY</h2>
+                
+                <div class="shadow-2xl shadow-brandPink/10 rounded-xl overflow-hidden transform hover:scale-[1.02] transition-transform duration-500">
+                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/53Hc9KKrneNywYTdLx9YFe?utm_source=generator&theme=0&si=d6070162a41741c8" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- YouTube Banner -->
+        <section id="youtube-banner" class="relative bg-bg py-16 border-b border-white/5">
+            <div class="mx-auto max-w-4xl px-5 sm:px-8 text-center reveal" x-intersect="$el.classList.add('active')">
+                <p class="text-brandBlue text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase mb-3">Clipes e Mais</p>
+                <h2 class="font-display text-4xl sm:text-5xl tracking-poster text-cream mb-8">INSCREVA-SE NO YOUTUBE</h2>
+                
+                <a href="https://youtube.com/@gabidiniz.oficial" target="_blank" class="group relative flex flex-col sm:flex-row items-center justify-center gap-6 p-8 sm:p-10 rounded-3xl border border-brandBlue/20 bg-gradient-to-r from-brandBlue/5 to-transparent hover:border-brandBlue/50 transition-all duration-500 overflow-hidden shadow-lg">
+                    <div class="absolute inset-0 bg-brandBlue/5 group-hover:bg-brandBlue/10 transition-colors duration-500"></div>
+                    <div class="relative z-10 w-20 h-20 flex-shrink-0 rounded-full bg-red-600/20 p-1 group-hover:scale-110 transition-transform duration-500">
+                        <div class="w-full h-full bg-red-600 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(220,38,38,0.5)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+                        </div>
+                    </div>
+                    <div class="relative z-10 text-center sm:text-left">
+                        <h3 class="text-3xl font-display tracking-widest text-white mb-1">Gaby Diniz Oficial</h3>
+                        <p class="text-cream/60 text-sm">Assista a conteúdos exclusivos, clipes e shows completos!</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Estrutura -->
+        <section id="estrutura" class="relative bg-bg-elevated py-24 sm:py-32 overflow-hidden border-t border-white/5">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brandPink/5 rounded-full blur-[100px] pointer-events-none"></div>
+            
+            <div class="relative mx-auto max-w-6xl px-5 sm:px-8">
+                <div class="mb-16 text-center reveal" x-intersect="$el.classList.add('active')">
+                    <p class="text-brandPink text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase mb-4">O que oferecemos</p>
+                    <h2 class="font-display text-5xl sm:text-6xl tracking-poster text-cream">ESTRUTURA DO SHOW</h2>
+                    <p class="text-cream/50 mt-6 max-w-2xl mx-auto text-lg font-light">Um show completo de até 3 horas com banda ao vivo, preparado para entregar a melhor experiência no seu evento.</p>
+                </div>
+                
+                <div class="max-w-4xl mx-auto reveal reveal-delay-2" x-intersect="$el.classList.add('active')">
+                    <div class="relative flex flex-col rounded-3xl border border-white/10 bg-zinc-900/50 backdrop-blur-xl p-8 sm:p-12 shadow-2xl transition-all duration-500 hover:border-brandPink/30 overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-brandBlue/20 to-transparent rounded-bl-full"></div>
+                        <h3 class="font-display text-4xl tracking-poster text-gradient mb-8 text-center md:text-left relative z-10">FORMAÇÃO DA BANDA</h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-8 mb-10 relative z-10">
+                            <ul class="space-y-5">
+                                <li class="flex items-center gap-4 text-base bg-white/5 p-3 rounded-lg border border-white/5">
+                                    <div class="w-2 h-2 rounded-full bg-brandPink"></div>
+                                    <span class="text-cream/90"><span class="font-semibold text-white">Voz:</span> 1 Saída (Cânon)</span>
+                                </li>
+                                <li class="flex items-center gap-4 text-base bg-white/5 p-3 rounded-lg border border-white/5">
+                                    <div class="w-2 h-2 rounded-full bg-brandPink"></div>
+                                    <span class="text-cream/90"><span class="font-semibold text-white">Teclado:</span> 2 Saídas R/L (P10)</span>
+                                </li>
+                                <li class="flex items-center gap-4 text-base bg-white/5 p-3 rounded-lg border border-white/5">
+                                    <div class="w-2 h-2 rounded-full bg-brandPink"></div>
+                                    <span class="text-cream/90"><span class="font-semibold text-white">Guitarra:</span> 1 Saída (P10)</span>
+                                </li>
+                            </ul>
+                            <ul class="space-y-5">
+                                <li class="flex items-center gap-4 text-base bg-white/5 p-3 rounded-lg border border-white/5">
+                                    <div class="w-2 h-2 rounded-full bg-brandBlue"></div>
+                                    <span class="text-cream/90"><span class="font-semibold text-white">Baixo:</span> 1 Saída (P10)</span>
+                                </li>
+                                <li class="flex items-center gap-4 text-base bg-white/5 p-3 rounded-lg border border-white/5">
+                                    <div class="w-2 h-2 rounded-full bg-brandBlue"></div>
+                                    <span class="text-cream/90"><span class="font-semibold text-white">Percussão:</span> 3 Microfones</span>
+                                </li>
+                                <li class="flex items-center gap-4 text-base bg-transparent p-3 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brandBlue/50"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                    <span class="text-cream/50 text-sm italic">Saídas auxiliares para pontos de ouvido</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mt-4 flex justify-center md:justify-start relative z-10">
+                            <a href="https://wa.me/5583996797817?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento%20para%20o%20show%20da%20Gaby%20Diniz." target="_blank" class="group relative inline-flex items-center justify-center px-10 py-4 text-sm font-bold tracking-widest text-white transition-all duration-300 ease-in-out transform rounded-full bg-gradient-to-r from-brandBlue to-brandPink hover:scale-105 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]">
+                                CHAME NO WHATSAPP
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-3 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer com Contatos de Show -->
+    <footer class="relative bg-bg pt-20 pb-12 border-t border-white/10">
+        <div class="mx-auto max-w-6xl px-5 sm:px-8 text-center">
+            
+            <div class="flex justify-center mb-10">
+                <img src="logo.png" alt="Gaby Diniz" class="h-20 w-auto object-contain">
+            </div>
+            
+            <!-- Nova Área de Contatos -->
+            <div class="mb-14 reveal" x-intersect="$el.classList.add('active')">
+                <h3 class="font-display text-3xl tracking-widest text-gradient mb-6">CONTATOS PARA SHOWS</h3>
+                <div class="inline-flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 p-8 rounded-3xl border border-white/10 bg-white/5 shadow-xl">
+                    <div class="text-center sm:text-left">
+                        <p class="text-cream/50 text-xs uppercase tracking-widest mb-1">Responsável</p>
+                        <p class="text-xl font-bold text-white mb-4">Junior Amorim</p>
+                        
+                        <div class="flex flex-col gap-3">
+                            <a href="https://wa.me/5583996797817" target="_blank" class="flex items-center justify-center sm:justify-start gap-3 text-cream/80 hover:text-brandBlue transition-colors group">
+                                <div class="w-10 h-10 rounded-full bg-brandBlue/10 flex items-center justify-center group-hover:bg-brandBlue group-hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                </div>
+                                <span class="font-medium tracking-wide">(83) 99679-7817</span>
+                            </a>
+                            
+                            <a href="https://www.instagram.com/jramoorim?utm_source=qr&stkn=OTl0dnlvZXhhdmNq" target="_blank" class="flex items-center justify-center sm:justify-start gap-3 text-cream/80 hover:text-brandPink transition-colors group">
+                                <div class="w-10 h-10 rounded-full bg-brandPink/10 flex items-center justify-center group-hover:bg-brandPink group-hover:text-white transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                                </div>
+                                <span class="font-medium tracking-wide">@jramoorim</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Redes Sociais da Cantora -->
+            <div class="flex items-center justify-center gap-6 mb-12">
+                <a href="https://www.instagram.com/gabidiniz.oficial" target="_blank" class="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white/70 hover:bg-brandPink hover:border-brandPink hover:text-white transition-all duration-300 hover:-translate-y-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/@gabidiniz.oficial" target="_blank" class="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white/70 hover:bg-brandPink hover:border-brandPink hover:text-white transition-all duration-300 hover:-translate-y-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+                </a>
+                <a href="https://youtube.com/@gabidiniz.oficial" target="_blank" class="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white/70 hover:bg-brandBlue hover:border-brandBlue hover:text-white transition-all duration-300 hover:-translate-y-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+                </a>
+            </div>
+            
+            <div class="flex flex-col items-center gap-2">
+                <p class="text-cream/30 text-xs mt-4">© 2026 Gaby Diniz — Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('scrollReveal', () => ({
+                scrolled: false,
+                scrollY: 0,
+                init() {
+                    window.addEventListener('scroll', () => {
+                        this.scrollY = window.scrollY;
+                    });
+                }
+            }))
+        })
+    </script>
+</body>
+</html>
